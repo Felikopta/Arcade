@@ -17,10 +17,8 @@ const STATUS_LABEL: Record<GameEntry["status"], string> = {
  * Pflichtangabe. Fuer eine kleine private Website verlangt das oesterreichische
  * Mediengesetz (§ 25 Abs 5) Name und Wohnort des Medieninhabers - mehr nicht,
  * solange nichts verkauft und keine Werbung geschaltet wird.
- *
- * !!! VOR DEM VEROEFFENTLICHEN AUSFUELLEN !!!
  */
-const IMPRESSUM = "Vorname Nachname, Wohnort";
+const IMPRESSUM = "Walter Huchl, Graz";
 
 export function renderHub(root: HTMLElement): void {
   // Vor dem Aufbau, damit der Zaehler im Kopf diesen Erfolg schon mitzaehlt.
