@@ -1,3 +1,5 @@
+@import "./fonts.css";
+
 /* Palette: Bergsee im Morgenlicht. Die Zahlen hier und die in scenery.ts
    gehoeren zusammen - aendert sich eine, gehoert die andere angeschaut. */
 
@@ -5,7 +7,6 @@
   --water-deep: #131f33;
   --water-mid: #1b2b45;
   --glass: rgba(16, 29, 48, 0.62);
-  --glass-soft: rgba(20, 35, 56, 0.45);
   --edge: rgba(190, 214, 240, 0.16);
   --edge-strong: rgba(205, 225, 245, 0.34);
 
@@ -129,15 +130,6 @@ body.is-playing {
   }
 }
 
-.eyebrow {
-  margin: 0 0 1.1rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--sun);
-}
-
 .hub-header h1 {
   margin: 0;
   font-family: var(--display);
@@ -152,36 +144,6 @@ body.is-playing {
   color: var(--sun);
   margin: 0 0.12em;
   font-weight: 500;
-}
-
-.lead {
-  margin: 1.4rem 0 0;
-  max-width: 34rem;
-  font-size: clamp(1rem, 1.6vw, 1.12rem);
-  color: var(--ink-soft);
-}
-
-.header-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.8rem;
-}
-
-.badge {
-  padding: 0.38rem 0.85rem;
-  border: 1px solid var(--edge);
-  border-radius: 999px;
-  background: var(--glass-soft);
-  backdrop-filter: blur(10px);
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--ink-soft);
-}
-
-.badge-stars {
-  color: var(--sun);
-  border-color: rgba(233, 179, 106, 0.4);
 }
 
 /* ---------------------------------------------------------------- Karten */
@@ -463,28 +425,6 @@ a.card:hover .card-action {
   border-color: rgba(233, 179, 106, 0.5);
   background: rgba(233, 179, 106, 0.16);
   color: var(--sun);
-}
-
-.about h2 {
-  margin: 0 0 0.9rem;
-  font-family: var(--display);
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.about p {
-  margin: 0 0 0.8rem;
-  max-width: 40rem;
-  color: var(--ink-soft);
-}
-
-.about p:last-child {
-  margin-bottom: 0;
-}
-
-.about a {
-  color: var(--sun);
-  text-underline-offset: 3px;
 }
 
 .hub-footer {

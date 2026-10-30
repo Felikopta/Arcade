@@ -17,7 +17,7 @@ export interface RouterTargets {
 }
 
 /** Hashes, die zu einem Abschnitt der Startseite gehoeren, nicht zu einem Spiel. */
-const ANCHORS = new Set(["spiele", "erfolge", "ueber-mich"]);
+const ANCHORS = new Set(["spiele", "erfolge"]);
 
 let running: Running | null = null;
 let input: Input | null = null;

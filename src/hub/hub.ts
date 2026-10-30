@@ -13,33 +13,30 @@ const STATUS_LABEL: Record<GameEntry["status"], string> = {
   soon: "kommt",
 };
 
+/**
+ * Pflichtangabe. Fuer eine kleine private Website verlangt das oesterreichische
+ * Mediengesetz (§ 25 Abs 5) Name und Wohnort des Medieninhabers - mehr nicht,
+ * solange nichts verkauft und keine Werbung geschaltet wird.
+ *
+ * !!! VOR DEM VEROEFFENTLICHEN AUSFUELLEN !!!
+ */
+const IMPRESSUM = "Vorname Nachname, Wohnort";
+
 export function renderHub(root: HTMLElement): void {
   // Vor dem Aufbau, damit der Zaehler im Kopf diesen Erfolg schon mitzaehlt.
   unlock("arcade.first-visit");
 
   root.innerHTML = "";
-  root.append(header(), gameGrid(), achievementPanel(), about(), footer());
+  root.append(header(), gameGrid(), achievementPanel(), footer());
 }
 
 // ------------------------------------------------------------------- Kopf
 
 function header(): HTMLElement {
-  const { done, total } = progress();
-
   const el = document.createElement("header");
   el.className = "hub-header";
   el.innerHTML = `
-    <p class="eyebrow">Ein Spiel pro Woche · November 2026 – Jänner 2027</p>
     <h1>FELIX<span class="dot">·</span>ARCADE</h1>
-    <p class="lead">
-      Neun Spiele, die ich selbst gebaut habe. Kein Framework, keine Engine,
-      kein Server — nur Canvas, TypeScript und jede Woche eine Technik,
-      die ich vorher nicht konnte.
-    </p>
-    <div class="header-meta">
-      <span class="badge badge-stars">★ ${done} / ${total} Erfolge</span>
-      <span class="badge">${GAMES.filter((g) => g.status === "ready").length} von ${GAMES.length} fertig</span>
-    </div>
     <a class="scroll-hint" href="#spiele"><span aria-hidden="true">↓</span> Zu den Spielen</a>
   `;
   return el;
@@ -128,39 +125,14 @@ function achievementRow(a: (typeof ACHIEVEMENTS)[number]): string {
   `;
 }
 
-// --------------------------------------------------------------- Ueber mich
-
-function about(): HTMLElement {
-  const el = document.createElement("section");
-  el.className = "panel about";
-  el.id = "ueber-mich";
-  el.innerHTML = `
-    <h2>Über mich</h2>
-    <p>
-      Ich bin Felix, Schüler in Österreich, und ich baue Spiele, weil mich
-      interessiert, was unter der Oberfläche passiert — Kollisionen,
-      Wegfindung, Physik, KI.
-    </p>
-    <p>
-      Diese Seite ist beides: mein Portfolio und meine Spielhalle. Jede Woche
-      kommt ein Spiel dazu, jedes zwingt mich zu einer Technik, die ich vorher
-      nicht konnte. Alles ohne Engine und ohne fremden Code für das Gameplay.
-    </p>
-    <p>
-      Du kannst alles direkt hier spielen, nichts muss installiert werden.
-      Fragen, Fehler oder Ideen gerne an
-      <a href="mailto:felikopta05@gmail.com">felikopta05@gmail.com</a>.
-    </p>
-  `;
-  return el;
-}
+// ------------------------------------------------------------- Pflichtteil
 
 function footer(): HTMLElement {
   const el = document.createElement("footer");
   el.className = "hub-footer";
   el.innerHTML = `
-    <span>Felix · Österreich · private Hobbyseite, keine Werbung</span>
-    <span>Spielstände bleiben in deinem Browser.</span>
+    <span>Impressum: ${IMPRESSUM} · Private Hobbyseite, keine Werbung, kein Verkauf.</span>
+    <span>Keine Cookies, kein Tracking. Spielstände bleiben in deinem Browser.</span>
   `;
   return el;
 }
