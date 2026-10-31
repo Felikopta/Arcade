@@ -8,7 +8,8 @@
 import { run, type Running } from "../shell/loop";
 import { Input } from "../shell/input";
 import { markPlayed } from "../shell/achievements";
-import { byId, loaders, playable, type GameEntry } from "./games";
+import { submitScore } from "../shell/save";
+import { GAMES, byId, loaders, type GameEntry } from "./games";
 import { renderHub } from "./hub";
 
 export interface RouterTargets {
@@ -22,6 +23,8 @@ const ANCHORS = new Set(["spiele", "erfolge"]);
 let running: Running | null = null;
 let input: Input | null = null;
 let showing: "hub" | "stage" | null = null;
+/** Das Spiel auf der Buehne, damit beim Verlassen sein Stand gelesen werden kann. */
+let current: GameEntry | null = null;
 
 export function startRouter(targets: RouterTargets): void {
   const go = () => void route(targets);
@@ -56,7 +59,11 @@ async function route(targets: RouterTargets) {
 
 function showHub(targets: RouterTargets) {
   targets.stage.hidden = true;
+  // Das Entfernen des iframes loest dort "pagehide" aus - das Spiel speichert
+  // dabei, und erst danach lohnt sich der Blick in seinen Spielstand.
   targets.stage.innerHTML = "";
+  if (current?.readScore) submitScore(current.id, current.readScore());
+  current = null;
   targets.hub.hidden = false;
   document.body.classList.remove("is-playing");
 
@@ -71,6 +78,7 @@ async function openStage(targets: RouterTargets, game: GameEntry) {
   targets.stage.hidden = false;
   document.body.classList.add("is-playing");
   showing = "stage";
+  current = game;
 
   targets.stage.innerHTML = `
     <div class="stage-bar">
@@ -82,9 +90,11 @@ async function openStage(targets: RouterTargets, game: GameEntry) {
   `;
   const body = targets.stage.querySelector<HTMLElement>(".stage-body")!;
 
-  markPlayed(game.id, playable().length);
+  // Zaehlt gegen den ganzen Katalog - sonst waere "Komplettist" schon
+  // beim allerersten Spiel geschafft.
+  markPlayed(game.id, GAMES.length);
 
-  if (game.kind === "unity") {
+  if (game.kind !== "ts") {
     const frame = document.createElement("iframe");
     frame.className = "stage-frame";
     frame.title = game.title;

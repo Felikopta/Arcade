@@ -61,14 +61,14 @@ describe("Erfolge", () => {
     expect(isUnlocked("arcade.three-games")).toBe(true);
   });
 
-  it("schaltet 'Komplettist' frei, wenn alle freigeschalteten Spiele dran waren", () => {
+  it("schaltet 'Komplettist' frei, wenn alle Spiele dran waren", () => {
     markPlayed("breakout", 2);
     expect(isUnlocked("arcade.all-games")).toBe(false);
     markPlayed("tetris", 2);
     expect(isUnlocked("arcade.all-games")).toBe(true);
   });
 
-  it("vergibt 'Komplettist' nicht, solange noch kein Spiel fertig ist", () => {
+  it("vergibt 'Komplettist' nicht ohne Spiele im Katalog", () => {
     markPlayed("breakout", 0);
     expect(isUnlocked("arcade.all-games")).toBe(false);
   });

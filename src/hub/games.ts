@@ -2,13 +2,15 @@
  * Der Katalog. Eine Zeile pro Spiel - der Hub baut daraus die Karten,
  * der Router weiss daraus, was er laden darf.
  *
- * Neues Spiel fertig? status auf "ready" setzen und in loaders unten eintragen.
+ * Neues Spiel fertig? status auf "ready" setzen und in loaders unten eintragen -
+ * oder, als fertige Seite, nach public/games/<build>/ legen.
  */
 
 import type { Game } from "../shell/loop";
 
 export type GameStatus = "ready" | "next" | "soon";
-export type GameKind = "ts" | "unity";
+/** "ts" laeuft auf der Game-Shell, "unity" und "html" sind fertige Seiten im iframe. */
+export type GameKind = "ts" | "unity" | "html";
 
 export interface GameEntry {
   id: string;
@@ -24,8 +26,13 @@ export interface GameEntry {
   tech: string;
   /** Akzentfarbe der Karte, passend zur Seepalette */
   accent: string;
-  /** nur fuer kind "unity": Ordner unter public/games/ */
+  /** nur fuer kind "unity" und "html": Ordner unter public/games/ */
   build?: string;
+  /**
+   * Fuer Spiele im iframe, die ihren eigenen Spielstand fuehren: liest daraus
+   * die Zahl, die auf der Karte als Highscore steht.
+   */
+  readScore?: () => number;
 }
 
 export const GAMES: GameEntry[] = [
@@ -34,12 +41,14 @@ export const GAMES: GameEntry[] = [
     title: "Cookie Clicker",
     week: "KW45",
     dates: "2.–8. Nov",
-    status: "next",
-    kind: "unity",
+    status: "ready",
+    kind: "html",
     tagline: "Ein Klick, dann zehn, dann rechnet die Zeit für dich weiter.",
     tech: "Offline-Fortschritt, Zahlen die sehr groß werden",
     accent: "#d98b3f",
     build: "cookieclicker",
+    // Insgesamt gebackene Kekse - die einzige Zahl, die nie wieder sinkt.
+    readScore: () => readSaveNumber("cookieClicker.save.v1", "totalBaked"),
   },
   {
     id: "breakout",
@@ -133,12 +142,18 @@ export const GAMES: GameEntry[] = [
   },
 ];
 
-export function byId(id: string): GameEntry | undefined {
-  return GAMES.find((g) => g.id === id);
+/** Liest ein Zahlenfeld aus dem localStorage-Spielstand eines eingebetteten Spiels. */
+function readSaveNumber(key: string, field: string): number {
+  try {
+    const value: unknown = JSON.parse(localStorage.getItem(key) ?? "null")?.[field];
+    return typeof value === "number" && Number.isFinite(value) ? Math.floor(value) : 0;
+  } catch {
+    return 0;
+  }
 }
 
-export function playable(): GameEntry[] {
-  return GAMES.filter((g) => g.status === "ready");
+export function byId(id: string): GameEntry | undefined {
+  return GAMES.find((g) => g.id === id);
 }
 
 /**

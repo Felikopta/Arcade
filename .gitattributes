@@ -3,3 +3,4 @@
 
 # Schriften nie als Text behandeln (LF-Normalisierung wuerde sie zerstoeren)
 *.woff2 binary
+*.webp binary

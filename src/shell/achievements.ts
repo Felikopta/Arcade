@@ -22,7 +22,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: "arcade.first-visit", game: "arcade", title: "Angekommen", hint: "Den Hub zum ersten Mal geöffnet" },
   { id: "arcade.first-play", game: "arcade", title: "Erster Zug", hint: "Irgendein Spiel gestartet" },
   { id: "arcade.three-games", game: "arcade", title: "Spielhalle", hint: "Drei verschiedene Spiele gespielt" },
-  { id: "arcade.all-games", game: "arcade", title: "Komplettist", hint: "Jedes freigeschaltete Spiel einmal gespielt" },
+  { id: "arcade.all-games", game: "arcade", title: "Komplettist", hint: "Jedes Spiel der Arcade einmal gespielt" },
   { id: "arcade.night-owl", game: "arcade", title: "Nachtschicht", hint: "Zwischen 2 und 5 Uhr gespielt", secret: true },
   { id: "arcade.duck-whisperer", game: "arcade", title: "Entenflüsterer", hint: "Eine Ente am See angeklickt", secret: true },
 ];
@@ -82,7 +82,7 @@ export function unlock(id: string): boolean {
 }
 
 /** Merkt sich, dass ein Spiel gestartet wurde, und zieht die Meilensteine nach. */
-export function markPlayed(gameId: string, unlockedGameCount: number): void {
+export function markPlayed(gameId: string, totalGames: number): void {
   const state = achievementStore.update((current) =>
     current.played.includes(gameId)
       ? current
@@ -91,7 +91,7 @@ export function markPlayed(gameId: string, unlockedGameCount: number): void {
 
   unlock("arcade.first-play");
   if (state.played.length >= 3) unlock("arcade.three-games");
-  if (unlockedGameCount > 0 && state.played.length >= unlockedGameCount) {
+  if (totalGames > 0 && state.played.length >= totalGames) {
     unlock("arcade.all-games");
   }
 

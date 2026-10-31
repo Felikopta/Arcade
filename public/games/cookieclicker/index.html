@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Clicker</title>
+  <link rel="icon" href="img/cookie.webp" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="game.js" defer></script>
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>Cookie Clicker</h1>
+    <div class="header-actions">
+      <button id="saveButton" type="button">Speichern</button>
+      <button id="resetButton" type="button" class="danger">Neu anfangen</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="bakery" aria-label="Bäckerei">
+      <div class="scoreboard" aria-live="polite">
+        <p id="score" class="score">0 Cookies</p>
+        <p id="perSecond" class="per-second">0 pro Sekunde</p>
+        <ul id="buffs" class="buffs"></ul>
+      </div>
+
+      <div class="cookie-stage">
+        <button id="cookieButton" class="cookie-button" type="button" aria-label="Cookie backen">
+          <img src="img/cookie.webp" alt="" draggable="false" />
+        </button>
+      </div>
+      <p class="hint">Klick den Keks. Wenn ein goldener Keks auftaucht: schnell zugreifen!</p>
+
+      <details class="stats">
+        <summary>Statistik</summary>
+        <dl id="stats"></dl>
+      </details>
+
+      <details class="stats">
+        <summary>Erfolge <span id="achievementCount"></span></summary>
+        <ul id="achievements" class="achievements"></ul>
+      </details>
+    </section>
+
+    <section class="shop" aria-labelledby="upgradesTitle">
+      <div class="shop-head">
+        <h2 id="upgradesTitle">Verbesserungen</h2>
+      </div>
+      <div id="upgrades" class="upgrades"></div>
+      <p id="upgradeInfo" class="upgrade-info">Fahre über eine Verbesserung, um zu sehen, was sie bringt.</p>
+
+      <div class="shop-head">
+        <h2>Gebäude</h2>
+        <div class="buy-amount" role="group" aria-label="Kaufmenge">
+          <button type="button" data-amount="1" aria-pressed="true">×1</button>
+          <button type="button" data-amount="10" aria-pressed="false">×10</button>
+          <button type="button" data-amount="100" aria-pressed="false">×100</button>
+        </div>
+      </div>
+      <div id="buildings" class="buildings"></div>
+    </section>
+  </main>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+</body>
+
+</html>

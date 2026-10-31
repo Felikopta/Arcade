@@ -11,10 +11,11 @@ Jede Woche kommt ein Spiel dazu, und jedes bringt eine Technik mit, die im
 vorigen noch nicht nötig war — Kollisionserkennung, Wegfindung, Physik,
 Spielbaum-Suche, Rendering ohne 3D-Bibliothek.
 
-Gebaut ohne Engine und ohne Framework: Canvas 2D und TypeScript. Alle Spiele
-teilen sich dieselbe Game-Shell mit festem Zeitschritt — die Logik läuft
-deshalb auf jedem Gerät exakt gleich schnell, egal ob der Bildschirm 30 oder
-144 Bilder pro Sekunde zeichnet.
+Gebaut ohne Engine und ohne Framework: Canvas 2D und TypeScript, der Cookie
+Clicker als schlichte HTML-Seite. Die Canvas-Spiele teilen sich dieselbe
+Game-Shell mit festem Zeitschritt — die Logik läuft deshalb auf jedem Gerät
+exakt gleich schnell, egal ob der Bildschirm 30 oder 144 Bilder pro Sekunde
+zeichnet.
 
 Die Seite ist statisch und kommt ohne Server und ohne Datenbank aus. Sie setzt
 keine Cookies, lädt nichts von fremden Servern und zeichnet nichts auf.
@@ -24,7 +25,7 @@ Spielstände und Highscores bleiben im Browser.
 
 | Spiel | Die Technik dahinter | |
 |---|---|---|
-| Cookie Clicker | Offline-Fortschritt, sehr große Zahlen | in Arbeit |
+| Cookie Clicker | Offline-Fortschritt, sehr große Zahlen | spielbar |
 | Breakout | Kreis-Rechteck-Kollision | geplant |
 | Market Sim | Angebot und Nachfrage, die sich einpendeln | geplant |
 | Tetris | SRS, 7-Bag, Lock-Delay | geplant |

@@ -502,7 +502,6 @@ a.card:hover .card-action {
   border: 0;
   border-radius: 10px;
   background: #0c141f;
-  touch-action: none;
 }
 
 .stage-canvas:focus-visible {
